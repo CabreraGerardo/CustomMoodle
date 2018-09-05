@@ -8,6 +8,7 @@ package edu.salle.custommoodle.view;
 import edu.salle.custommoodle.buisnesslogic.StudentBLO;
 import edu.salle.custommoodle.model.Student;
 import java.util.List;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -25,6 +26,7 @@ public class StudentWindow extends javax.swing.JFrame {
     public StudentWindow() {
         initComponents();
         setLocationRelativeTo(null);
+        studentBLO.load();
     }
 
     /**
@@ -38,7 +40,7 @@ public class StudentWindow extends javax.swing.JFrame {
 
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
-        tfLastName = new javax.swing.JTextField();
+        tfParameter = new javax.swing.JTextField();
         tfName = new javax.swing.JTextField();
         bDelete = new javax.swing.JButton();
         bSave = new javax.swing.JButton();
@@ -49,29 +51,31 @@ public class StudentWindow extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         tStudents = new javax.swing.JTable();
         bRefresh = new javax.swing.JButton();
+        bExit = new javax.swing.JButton();
+        tfLastName = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel1.setText("Last Name");
-        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 30, -1, -1));
+        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 50, -1, -1));
 
         jLabel2.setText("Name");
-        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 30, -1, -1));
+        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 50, -1, -1));
 
-        tfLastName.addActionListener(new java.awt.event.ActionListener() {
+        tfParameter.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                tfLastNameActionPerformed(evt);
+                tfParameterActionPerformed(evt);
             }
         });
-        getContentPane().add(tfLastName, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 30, 120, -1));
+        getContentPane().add(tfParameter, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 280, 130, -1));
 
         tfName.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 tfNameActionPerformed(evt);
             }
         });
-        getContentPane().add(tfName, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 30, 120, -1));
+        getContentPane().add(tfName, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 50, 120, -1));
 
         bDelete.setText("Delete");
         bDelete.addActionListener(new java.awt.event.ActionListener() {
@@ -79,7 +83,7 @@ public class StudentWindow extends javax.swing.JFrame {
                 bDeleteActionPerformed(evt);
             }
         });
-        getContentPane().add(bDelete, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 120, 130, 30));
+        getContentPane().add(bDelete, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 210, 130, 30));
 
         bSave.setText("Save");
         bSave.addActionListener(new java.awt.event.ActionListener() {
@@ -87,17 +91,17 @@ public class StudentWindow extends javax.swing.JFrame {
                 bSaveActionPerformed(evt);
             }
         });
-        getContentPane().add(bSave, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 120, 130, 30));
+        getContentPane().add(bSave, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 100, 130, 30));
 
         tfId.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 tfIdActionPerformed(evt);
             }
         });
-        getContentPane().add(tfId, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 80, 120, -1));
+        getContentPane().add(tfId, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 170, 130, -1));
 
         jLabel3.setText("Id");
-        getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 80, -1, -1));
+        getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 170, 20, -1));
 
         bSearch.setText("Search");
         bSearch.addActionListener(new java.awt.event.ActionListener() {
@@ -105,7 +109,7 @@ public class StudentWindow extends javax.swing.JFrame {
                 bSearchActionPerformed(evt);
             }
         });
-        getContentPane().add(bSearch, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 120, 130, 30));
+        getContentPane().add(bSearch, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 320, 130, 30));
 
         bUpdate.setText("Update");
         bUpdate.addActionListener(new java.awt.event.ActionListener() {
@@ -113,7 +117,7 @@ public class StudentWindow extends javax.swing.JFrame {
                 bUpdateActionPerformed(evt);
             }
         });
-        getContentPane().add(bUpdate, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 120, 130, 30));
+        getContentPane().add(bUpdate, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 210, 130, 30));
 
         tStudents.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -125,7 +129,7 @@ public class StudentWindow extends javax.swing.JFrame {
         ));
         jScrollPane1.setViewportView(tStudents);
 
-        getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 180, -1, 240));
+        getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 370, -1, 240));
 
         bRefresh.setText("Refresh");
         bRefresh.addActionListener(new java.awt.event.ActionListener() {
@@ -133,7 +137,22 @@ public class StudentWindow extends javax.swing.JFrame {
                 bRefreshActionPerformed(evt);
             }
         });
-        getContentPane().add(bRefresh, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 435, 600, 50));
+        getContentPane().add(bRefresh, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 620, 590, 50));
+
+        bExit.setText("Exit");
+        bExit.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bExitActionPerformed(evt);
+            }
+        });
+        getContentPane().add(bExit, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 0, 90, -1));
+
+        tfLastName.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                tfLastNameActionPerformed(evt);
+            }
+        });
+        getContentPane().add(tfLastName, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 50, 120, -1));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -142,9 +161,9 @@ public class StudentWindow extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_tfNameActionPerformed
 
-    private void tfLastNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tfLastNameActionPerformed
+    private void tfParameterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tfParameterActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_tfLastNameActionPerformed
+    }//GEN-LAST:event_tfParameterActionPerformed
 
     private void bDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bDeleteActionPerformed
 
@@ -171,14 +190,29 @@ public class StudentWindow extends javax.swing.JFrame {
 
     private void bSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bSearchActionPerformed
         // TODO add your handling code here:
-        String id = tfId.getText();
-        Student student = studentBLO.find(id);
-        if(student != null)
-        {
-            tfName.setText(student.getName());
-            tfLastName.setText(student.getLastName());
-        }
         
+//        String id = tfId.getText();
+//        Student student = studentBLO.find(id);
+//        if(student != null)
+//        {
+//            tfName.setText(student.getName());
+//            tfLastName.setText(student.getLastName());
+//        }
+        
+        String lastName = tfParameter.getText().trim();
+        
+        if(!lastName.isEmpty())
+        {
+            List<Student> studentList = studentBLO.findByLastName(lastName);
+            if(!studentList.isEmpty())
+            {
+              refreshTable(studentList);
+            }
+        }
+        else
+        {
+            JOptionPane.showMessageDialog(null, "You need to fill the lastname");
+        }
     }//GEN-LAST:event_bSearchActionPerformed
 
     private void bUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bUpdateActionPerformed
@@ -187,17 +221,27 @@ public class StudentWindow extends javax.swing.JFrame {
 
     private void bRefreshActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bRefreshActionPerformed
         // TODO add your handling code here:
-        refreshTable();
+        refreshTable(studentBLO.findAll());
     }//GEN-LAST:event_bRefreshActionPerformed
+
+    private void tfLastNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tfLastNameActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_tfLastNameActionPerformed
+
+    private void bExitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bExitActionPerformed
+        // TODO add your handling code here:
+        
+        studentBLO.commitChanges();
+        this.dispose();
+    }//GEN-LAST:event_bExitActionPerformed
 
     
     //METODOS
     
-    private void refreshTable()
+    private void refreshTable(List<Student> studentList)
     {
         clearTable();
         
-        List<Student> studentList = studentBLO.findAll();
         DefaultTableModel dtm = (DefaultTableModel) tStudents.getModel();
         Object[] emptyRow = {""};
         
@@ -221,6 +265,7 @@ public class StudentWindow extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton bDelete;
+    private javax.swing.JButton bExit;
     private javax.swing.JButton bRefresh;
     private javax.swing.JButton bSave;
     private javax.swing.JButton bSearch;
@@ -233,5 +278,6 @@ public class StudentWindow extends javax.swing.JFrame {
     private javax.swing.JTextField tfId;
     private javax.swing.JTextField tfLastName;
     private javax.swing.JTextField tfName;
+    private javax.swing.JTextField tfParameter;
     // End of variables declaration//GEN-END:variables
 }
