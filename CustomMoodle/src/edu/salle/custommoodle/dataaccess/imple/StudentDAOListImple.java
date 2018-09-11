@@ -56,7 +56,7 @@ public class StudentDAOListImple implements StudentDAO {
         
         for(Student student:studentList)
         {
-            if(student.getLastName().toLowerCase().contains(lastName) || student.getName().toLowerCase().contains(lastName))
+            if(student.getLastName().toLowerCase().contains(lastName) || student.getName().toLowerCase().contains(lastName) || student.getId().toLowerCase().contains(lastName))
             {
                 resStudentList.add(student);
             }
